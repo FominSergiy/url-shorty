@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "model-name-pascal-case": "error",
+    "field-name-camel-case": "error",
+    "model-name-mapping-snake-case": ["error", { "pluralize": true }],
+    "field-name-mapping-snake-case": "error"
+  }
+}

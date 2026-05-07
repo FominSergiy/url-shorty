@@ -28,6 +28,7 @@ Update this file whenever a version range is changed.
 | `@prisma/client` | `^5.15.0` | Prisma 6/7 introduced breaking schema changes. Upgrade is a separate migration task. |
 | `prisma` | `^5.15.0` | Keep in sync with `@prisma/client`. |
 | `vitest` | `^3.2.4` | Upgraded from 1.x to fix CVE GHSA-67mh-4wv8-2f99 (esbuild dev-server vulnerability via vite). Vitest 3.x requires `--passWithNoTests` flag when no test files exist. |
+| `prisma-lint` | `^0.13.1` | Prisma schema linter. Config at `apps/backend/.prismalintrc.json`. Rules: `model-name-pascal-case`, `field-name-camel-case`, `model-name-mapping-snake-case` (pluralize: true), `field-name-mapping-snake-case`. Runs via `npm run lint:prisma` and is included in `npm run check`. |
 | `tsx` | `^4.15.0` | No known issues at this version. |
 | `typescript` | `^5.5.0` | TypeScript 6 is not yet stable for production use. |
 | `dotenv` | `^16.4.5` | No known issues. |

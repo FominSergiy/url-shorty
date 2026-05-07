@@ -10,8 +10,8 @@ datasource db {
 model Url {
   id          Int      @id @default(autoincrement())
   code        String   @unique @db.VarChar(12)
-  originalUrl String
-  createdAt   DateTime @default(now())
+  originalUrl String   @map("original_url")
+  createdAt   DateTime @default(now()) @map("created_at")
   clicks      Int      @default(0)
 
   @@map("urls")
