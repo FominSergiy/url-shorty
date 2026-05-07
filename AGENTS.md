@@ -85,7 +85,8 @@ Defined in `.mcp.json` at the project root. Both Claude Code and Codex CLI read 
 | `github` | PR operations — create, review, merge via GitHub MCP tools |
 | `playwright` | UI testing — navigate, click, assert in a real browser |
 
-Configure `GITHUB_TOKEN` in your environment before using the github MCP server.
+
+`GITHUB_TOKEN` is configured and defined in `.env` file - use it for github mcp
 
 ## Lint rules that block CI
 
