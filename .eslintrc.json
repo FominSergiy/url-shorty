@@ -30,7 +30,8 @@
     {
       "files": ["**/*.test.ts", "**/*.spec.ts"],
       "rules": {
-        "url-shorty/require-error-handling-in-async": "off"
+        "url-shorty/require-error-handling-in-async": "off",
+        "url-shorty/no-hardcoded-urls": "off"
       }
     }
   ]

@@ -56,4 +56,5 @@ type: decision | learning | blocker | context
 
 | Date | Type | Feature/Area | Agent | Summary | File |
 |---|---|---|---|---|---|
+| 2026-05-07 | learning | deps / startup | claude-code | Vite 5→6.4.2, Vitest 1→3 (CVE fix); eslint 8 pinned; vite-env.d.ts added; dependencies.md created | [2026-05-07-fix-deps-startup.md](entries/2026-05-07-fix-deps-startup.md) |
 | 2026-05-07 | context | scaffold | claude-code | Initial repo setup — Prisma, workspaces, ESLint plugin, MCP config | [2026-05-07-initial-scaffold.md](entries/2026-05-07-initial-scaffold.md) |
