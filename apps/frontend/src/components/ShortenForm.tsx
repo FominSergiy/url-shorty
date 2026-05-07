@@ -30,6 +30,7 @@ export default function ShortenForm({ onResult, onError }: Props) {
         type="url"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
+        // eslint-disable-next-line url-shorty/no-hardcoded-urls
         placeholder="https://example.com/very/long/url"
         required
         style={{ flex: 1, padding: '8px 12px', fontSize: 16 }}

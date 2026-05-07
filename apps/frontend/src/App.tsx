@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ShortenForm from './components/ShortenForm.js';
 import ResultCard from './components/ResultCard.js';
 import { ShortenResult } from './api.js';
