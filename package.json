@@ -1,0 +1,30 @@
+{
+  "name": "url-shorty",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend",
+    "packages/eslint-plugin-url-shorty"
+  ],
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev -w apps/backend\" \"npm run dev -w apps/frontend\"",
+    "build": "npm run build -w apps/frontend",
+    "lint": "eslint 'apps/**/*.{ts,tsx}' --max-warnings 0",
+    "typecheck": "npm run typecheck -w apps/backend && npm run typecheck -w apps/frontend",
+    "check": "npm run lint && npm run typecheck",
+    "test": "npm run test -w apps/backend",
+    "test:e2e": "npm run test:e2e -w apps/frontend",
+    "db:generate": "npm run db:generate -w apps/backend",
+    "db:migrate": "npm run db:migrate -w apps/backend",
+    "db:migrate:dev": "npm run db:migrate:dev -w apps/backend",
+    "db:studio": "npm run db:studio -w apps/backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "eslint-plugin-url-shorty": "*"
+  }
+}

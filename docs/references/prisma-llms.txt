@@ -1,0 +1,42 @@
+PRISMA + TYPESCRIPT REFERENCE - url-shorty project
+
+Schema location: apps/backend/prisma/schema.prisma
+Client import: import { PrismaClient } from '@prisma/client'
+Singleton: import prisma from '../db/index.js'  (apps/backend/src/db/index.ts exports the singleton)
+
+Prisma generates full TypeScript types from the schema. Use them — do not write manual types for DB records.
+
+COMMON OPERATIONS (Url model):
+
+Create:
+  prisma.url.create({ data: { code, originalUrl } })
+  Returns: Promise<Url>  where Url = { id, code, originalUrl, createdAt, clicks }
+
+Find by code:
+  prisma.url.findUnique({ where: { code } })
+  Returns: Promise<Url | null>
+
+Update (increment clicks):
+  prisma.url.update({ where: { code }, data: { clicks: { increment: 1 } } })
+
+Find with stats (partial select):
+  prisma.url.findUnique({
+    where: { code },
+    select: { code: true, originalUrl: true, clicks: true, createdAt: true }
+  })
+  Returns: Promise<{ code, originalUrl, clicks, createdAt } | null>
+
+MIGRATIONS:
+  Create migration: npx prisma migrate dev --name <description>  (dev only)
+  Apply migrations:  npx prisma migrate deploy  (CI/prod)
+  Root script:       npm run db:migrate  (runs prisma migrate deploy)
+  Generate client:   npx prisma generate  (run after schema changes, regenerates TS types)
+
+SCHEMA FIELD NAMES (camelCase in Prisma TS, maps to snake_case in DB):
+  originalUrl → original_url in Postgres
+  createdAt   → created_at in Postgres
+  Prisma handles the mapping automatically.
+
+DO NOT use prisma.$queryRaw for standard CRUD — use the typed model API above.
+DO NOT create a new PrismaClient per request — use the singleton from src/db/index.ts.
+DO NOT write manual TypeScript types for Url records — import from '@prisma/client' if needed.

@@ -1,0 +1,48 @@
+EXPRESS + TYPESCRIPT REFERENCE - url-shorty project
+
+Entry point: apps/backend/src/index.ts
+Router files: apps/backend/src/routes/*.ts
+Services: apps/backend/src/services/urlService.ts
+DB client: apps/backend/src/db/index.ts (Prisma singleton)
+Runner: tsx (dev + prod) — no compilation step needed; tsc --noEmit for type checking only
+
+ROUTE HANDLER PATTERN (required):
+  import { Router, Request, Response, NextFunction } from 'express';
+
+  router.post('/api/v1/path', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { field } = req.body as { field?: string };
+      const result = await someService.doThing(field);
+      res.status(201).json(result);
+    } catch (err) {
+      next(err);  // always call next(err) — do not res.status(500) inline
+    }
+  });
+
+RULES:
+- All routes must start with /api/v1/ (except redirect.ts which handles /:code)
+- Never call prisma.* from route files — use service functions
+- Validate input at the top of the handler before calling services
+- Use res.status(400) for bad input, res.status(404) for not found, res.status(201) for created
+- Type req.body with a cast: `req.body as { field?: string }` — body is unknown by default
+
+ERROR MIDDLEWARE (already in index.ts — do not add another):
+  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  });
+
+ROUTE REGISTRATION ORDER (index.ts):
+  1. app.use(express.json())
+  2. API routers (shorten, stats) — specific paths first
+  3. redirectRouter last — catches /:code
+
+RESPONSE SHAPES:
+  POST /api/v1/shorten → 201 { code: string, shortUrl: string }
+  GET  /api/v1/stats/:code → 200 { code, originalUrl, clicks, createdAt }
+  GET  /:code → 302 redirect (no JSON body)
+  Errors → { error: string }
+
+IMPORTS:
+  Use .js extension in import paths even for .ts files — TypeScript + tsx resolves correctly.
+  Example: import * as urlService from '../services/urlService.js'

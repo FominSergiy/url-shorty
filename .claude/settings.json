@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(git *)",
+      "Bash(docker compose *)",
+      "Bash(npx prisma *)",
+      "Bash(npx *)",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Read"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/sfomin/project-space/url-shorty && npx eslint --no-eslintrc -c .eslintrc.json \"${CLAUDE_TOOL_INPUT_FILE_PATH}\" 2>&1 | head -30 || true"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": { "jsx": true }
+  },
+  "plugins": ["@typescript-eslint", "url-shorty"],
+  "rules": {
+    "url-shorty/no-direct-db-in-routes": "error",
+    "url-shorty/require-error-handling-in-async": "error",
+    "url-shorty/no-hardcoded-urls": "warn",
+    "url-shorty/api-route-naming": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-unused-vars": "off",
+    "no-console": "off"
+  },
+  "overrides": [
+    {
+      "files": ["apps/backend/src/routes/redirect.ts"],
+      "rules": {
+        "url-shorty/api-route-naming": "off"
+      }
+    },
+    {
+      "files": ["**/*.test.ts", "**/*.spec.ts"],
+      "rules": {
+        "url-shorty/require-error-handling-in-async": "off"
+      }
+    }
+  ]
+}
