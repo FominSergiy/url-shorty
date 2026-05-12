@@ -49,6 +49,7 @@ Reviewer → approves + merges
 ### What Planners must NOT do
 - Implement code
 - Open PRs
+- Run build, test, lint, or CLI validation commands — reading source files and docs is sufficient to write the issue; investigation by execution is the Worker's job
 - Make assumptions about the UI without reading `docs/ui/design.md`
 
 ---
@@ -91,6 +92,10 @@ Reviewer → approves + merges
 ### Responsibilities
 - Read the PR diff and linked issue
 - Verify code against `docs/code-design.md`
+- Verify the code changes work and app is buildable
+     - if its a UI change, verify playwright test exists and test it
+     - if backend feature, make sure unit tests exist and pass, and backend is buildable
+     - if db changes, make sure prisma in happy state - migration db passes and app builds
 - Post specific inline comments via GitHub
 - verifies UI featues with playwright mcp - these have to pass
 - Approve + merge when clean
