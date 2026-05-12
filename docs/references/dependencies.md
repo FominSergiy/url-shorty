@@ -25,8 +25,10 @@ Update this file whenever a version range is changed.
 | Package | Range | Notes |
 |---|---|---|
 | `express` | `^4.19.2` | Express 5 changed error-handling middleware signatures. Upgrade is a separate task requiring route-file review. |
-| `@prisma/client` | `^5.15.0` | Prisma 6/7 introduced breaking schema changes. Upgrade is a separate migration task. |
-| `prisma` | `^5.15.0` | Keep in sync with `@prisma/client`. |
+| `@prisma/client` | `^7.8.0` | Upgraded from 5.x. Prisma 7 removes `url` from `datasource` in `schema.prisma`; connection URL moved to `prisma.config.ts` (for CLI) and to the `PrismaPg` adapter (for runtime). Runtime connections now require a driver adapter — direct env-var URL pickup is gone. |
+| `prisma` | `^7.8.0` | Keep in sync with `@prisma/client`. |
+| `@prisma/adapter-pg` | `^7.8.0` | PostgreSQL driver adapter required by Prisma 7 runtime. Wraps `pg.Pool`; instantiated with `DATABASE_URL` in `apps/backend/src/db/index.ts`. Keep version in sync with `prisma` / `@prisma/client`. |
+| `pg` | `^8.x` | Node-postgres client used by `@prisma/adapter-pg`. |
 | `vitest` | `^3.2.4` | Upgraded from 1.x to fix CVE GHSA-67mh-4wv8-2f99 (esbuild dev-server vulnerability via vite). Vitest 3.x requires `--passWithNoTests` flag when no test files exist. |
 | `prisma-lint` | `^0.13.1` | Prisma schema linter. Config at `apps/backend/.prismalintrc.json`. Rules: `model-name-pascal-case`, `field-name-camel-case`, `model-name-mapping-snake-case` (pluralize: true), `field-name-mapping-snake-case`. Runs via `npm run lint:prisma` and is included in `npm run check`. |
 | `tsx` | `^4.15.0` | No known issues at this version. |
